@@ -17,7 +17,6 @@ namespace UniversityApiBackend.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
         }
-
     }
 
 }
