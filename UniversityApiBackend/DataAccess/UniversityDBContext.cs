@@ -13,10 +13,6 @@ namespace UniversityApiBackend.DataAccess
         public DbSet<Category>? Categories { get; set; }
         public DbSet<Chapter>? Indexes { get; set; }
         public DbSet<Student>? Students { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-        }
     }
 
 }

@@ -81,6 +81,5 @@ namespace UniversityApiBackend.Helpers
             }
         }
 
-
     }
 }
