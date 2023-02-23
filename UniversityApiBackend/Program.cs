@@ -19,7 +19,11 @@ builder.Services.AddControllers();
 
 
 // 4. Add Custom Services (folder services)
+builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+builder.Services.AddScoped<IChaptersService, ChaptersService>();
+builder.Services.AddScoped<ICoursesService, CoursesService>();
 builder.Services.AddScoped<IStudentsService, StudentsService>();
+builder.Services.AddScoped<IUsersService, UsersService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

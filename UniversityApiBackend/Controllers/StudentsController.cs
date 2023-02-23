@@ -103,6 +103,29 @@ namespace UniversityApiBackend.Controllers
             return NoContent();
         }
 
+        // GET: api/Students/with-courses
+        [HttpGet("with-courses")]
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudentsWithCourses()
+        {
+            return NoContent();
+        }
+
+        // GET: api/Students/with-no-courses
+        [HttpGet("with-no-courses")]
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudentsWithNoCourses()
+        {
+            return NoContent();
+        }
+
+        // GET: api/Students/3/courses
+        [HttpGet("{id}/courses")]
+        public async Task<ActionResult<IEnumerable<Course>>> GetStudentCourses(int id)
+        {
+            return NoContent();
+        }
+
+
+
         private bool StudentExists(int id)
         {
             return _context.Students.Any(e => e.Id == id);

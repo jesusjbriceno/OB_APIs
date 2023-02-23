@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Models.DataModels;
+using UniversityApiBackend.Services;
 
 namespace UniversityApiBackend.Controllers
 {
@@ -15,10 +16,12 @@ namespace UniversityApiBackend.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly UniversityDBContext _context;
+        private readonly ICoursesService _coursesService;
 
-        public CoursesController(UniversityDBContext context)
+        public CoursesController(UniversityDBContext context, ICoursesService coursesService)
         {
             _context = context;
+            _coursesService = coursesService;
         }
 
         // GET: api/Courses
@@ -97,6 +100,34 @@ namespace UniversityApiBackend.Controllers
             _context.Courses.Remove(course);
             await _context.SaveChangesAsync();
 
+            return NoContent();
+        }
+
+        // GET: api/Courses/category/3
+        [HttpGet("category/{id}")]
+        public async Task<ActionResult<IEnumerable<Course>>> GetCoursesByCategory(int id)
+        {
+            return NoContent();
+        }
+
+        // GET: api/Courses/with-no-chapter
+        [HttpGet("with-no-chapter")]
+        public async Task<ActionResult<IEnumerable<Course>>> GetCoursesWithNoCahpter()
+        {
+            return NoContent();
+        }
+
+        // GET: api/Courses/2/chapter
+        [HttpGet("{id}/chapter")]
+        public async Task<ActionResult<Chapter>> GetCourseChapter(int id)
+        {
+            return NoContent();
+        }
+
+        // GET: api/Courses/2/students
+        [HttpGet("{id}/students")]
+        public async Task<ActionResult<Chapter>> GetCourseStudents(int id)
+        {
             return NoContent();
         }
 

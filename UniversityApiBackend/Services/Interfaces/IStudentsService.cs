@@ -6,5 +6,6 @@ namespace UniversityApiBackend.Services
     {
         IEnumerable<Student> GetStudentsWithCourses();
         IEnumerable<Student> GetStudentsWithNoCourses();
+        IEnumerable<Course> GetStudentCourses(int studentId);
     }
 }
