@@ -17,6 +17,9 @@ namespace UniversityApiBackend.Models.DataModels
         [Required]
         public string Password { get; set; } = string.Empty;
 
+        [Required]
+        public string Rol { get; set; } = "User";
+
         //[InverseProperty("CreatedBy")]
         //public virtual ICollection<BaseEntity> BaseCreatedBy {get;set;} = new List<BaseEntity>();
         //[InverseProperty("UpdatedBy")]

@@ -80,6 +80,15 @@ namespace UniversityApiBackend.Controllers
         // GET: 
         [HttpGet]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Administrator")]
+
+        // POST:
+        [HttpPost]
+        public IActionResult Login(string username, string password)
+        {
+            UniversityApiBackend.Models.DataModels.User user = _context.Users!.First(u => u.Name == username && u.Password == password);
+            return (user == null) ? NotFound() : Ok(user);
+        }
+
         public IActionResult GetUserList()
         {
             return Ok(Logins);
