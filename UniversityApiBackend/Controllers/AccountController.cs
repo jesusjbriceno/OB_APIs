@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Helpers;
 using UniversityApiBackend.Models.DataModels;
@@ -14,6 +15,7 @@ namespace UniversityApiBackend.Controllers
     {
         private readonly UniversityDBContext _context;
         private readonly JwtSettings _jwtSettings;
+        private readonly IStringLocalizer<AccountController> _stringLocalizer;
 
         // Example Users
         // TODO: Change by real users in DB
@@ -36,10 +38,11 @@ namespace UniversityApiBackend.Controllers
         };
 
 
-        public AccountController(UniversityDBContext context, JwtSettings jwtSettings)
+        public AccountController(UniversityDBContext context, JwtSettings jwtSettings, IStringLocalizer<AccountController> stringLocalizer)
         {
             _context = context;
             _jwtSettings = jwtSettings;
+            _stringLocalizer = stringLocalizer;
         }
 
         // POST: 
@@ -50,17 +53,23 @@ namespace UniversityApiBackend.Controllers
             {
                 var token = new UserTokens();
 
-                var isValid = _context.Users!.Any(user => user.Name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase) && userLogin.Password.Equals(user.Password));
+                var searchUser = (from user in _context.Users
+                                 where user.Name == userLogin.UserName
+                                 && user.Password == userLogin.Password
+                                 select user).FirstOrDefault();
 
-                var valid = Logins.Any(login => login.Name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
-                if(valid)
-                {
-                    var user = Logins.FirstOrDefault(u => u.Name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
+                Console.WriteLine($"User Found {searchUser}");
+
+                //var isValid = _context.Users!.Any(user => user.Name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase) && userLogin.Password.Equals(user.Password));
+                //var valid = Logins.Any(login => login.Name.Equals(userLogin.UserName, StringComparison.OrdinalIgnoreCase));
+
+                if(searchUser != null)
+                {                    
                     token = JwtHelpers.GenTokenKey(new UserTokens()
                     {
-                        UserName = user.Name,
-                        EmailId = user.Email,
-                        Id = user.Id,
+                        UserName = searchUser.Name,
+                        EmailId = searchUser.Email,
+                        Id = searchUser.Id,
                         GuidId = Guid.NewGuid()
                     }, _jwtSettings);
                 }
@@ -69,7 +78,11 @@ namespace UniversityApiBackend.Controllers
                     return BadRequest("Wrong Credentials!!");
                 }
 
-                return Ok(token);
+                return Ok(new
+                {
+                    Token = token.Token,
+                    Message = _stringLocalizer["Welcome"].Value
+                });
             }
             catch (Exception ex)
             {
@@ -83,15 +96,10 @@ namespace UniversityApiBackend.Controllers
 
         // POST:
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login(UserLogins userLogin)
         {
-            UniversityApiBackend.Models.DataModels.User user = _context.Users!.First(u => u.Name == username && u.Password == password);
+            UniversityApiBackend.Models.DataModels.User user = _context.Users!.First(u => u.Name == userLogin.UserName && u.Password == userLogin.Password);
             return (user == null) ? NotFound() : Ok(user);
-        }
-
-        public IActionResult GetUserList()
-        {
-            return Ok(Logins);
         }
     }
 }

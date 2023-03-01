@@ -19,6 +19,9 @@ builder.Services.AddDbContext<UniversityDBContext>(options => options.UseSqlServ
 // 7. Add Servide of JWT Authorization
 builder.Services.AddJwtTokenServices(builder.Configuration);
 
+// 10. Add Localization
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
 
 // Add services to the container.
 
@@ -89,6 +92,16 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+
+// 11. Supported Cultures
+var supportedCultures = new[] { "es-ES", "en-US", "fr-FR", "de-DE" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+// 12. Add localization to App
+app.UseRequestLocalization(localizationOptions);
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
