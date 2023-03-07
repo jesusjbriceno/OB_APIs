@@ -4,8 +4,20 @@ using Microsoft.OpenApi.Models;
 using UniversityApiBackend;
 using UniversityApiBackend.DataAccess;
 using UniversityApiBackend.Services;
+// 10. Use Serilog to log events
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// 13. Consfig serilog
+builder.Host.UseSerilog((hostBuilderCtx, loggerConf) =>
+{
+    loggerConf
+        .WriteTo.Console()
+        .WriteTo.Debug()
+        .ReadFrom.Configuration(hostBuilderCtx.Configuration);
+});
+
 
 // 2. Connection with SQL Server
 const string CONNECTION_NAME = "UniversityDB";
@@ -109,6 +121,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// 14. Teel app use Serilog
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
