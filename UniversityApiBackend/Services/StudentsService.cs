@@ -4,6 +4,13 @@ namespace UniversityApiBackend.Services
 {
     public class StudentsService : IStudentsService
     {
+        private readonly ILogger<StudentsService> _logger;
+
+        public StudentsService(ILogger<StudentsService> logger)
+        {
+            _logger = logger;
+        }
+
         public IEnumerable<Course> GetStudentCourses(int studentId)
         {
             throw new NotImplementedException();

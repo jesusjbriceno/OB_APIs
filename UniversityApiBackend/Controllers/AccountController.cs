@@ -16,6 +16,7 @@ namespace UniversityApiBackend.Controllers
         private readonly UniversityDBContext _context;
         private readonly JwtSettings _jwtSettings;
         private readonly IStringLocalizer<AccountController> _stringLocalizer;
+        private readonly ILogger<AccountController> _logger;
 
         // Example Users
         // TODO: Change by real users in DB
@@ -38,11 +39,12 @@ namespace UniversityApiBackend.Controllers
         };
 
 
-        public AccountController(UniversityDBContext context, JwtSettings jwtSettings, IStringLocalizer<AccountController> stringLocalizer)
+        public AccountController(UniversityDBContext context, JwtSettings jwtSettings, IStringLocalizer<AccountController> stringLocalizer, ILogger<AccountController> logger)
         {
             _context = context;
             _jwtSettings = jwtSettings;
             _stringLocalizer = stringLocalizer;
+            _logger = logger;
         }
 
         // POST: 

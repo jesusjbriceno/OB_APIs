@@ -17,10 +17,12 @@ namespace UniversityApiBackend.Controllers
     public class ChaptersController : ControllerBase
     {
         private readonly UniversityDBContext _context;
+        private readonly ILogger<ChaptersController> _logger;
 
-        public ChaptersController(UniversityDBContext context)
+        public ChaptersController(UniversityDBContext context, ILogger<ChaptersController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Chapters
