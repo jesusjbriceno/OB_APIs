@@ -11,17 +11,17 @@ namespace UniversityApiBackend.Services
             _logger = logger;
         }
 
-        public IEnumerable<Course> GetStudentCourses(int studentId)
+        public async Task<IEnumerable<Course>> GetStudentCourses(int studentId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Student> GetStudentsWithCourses()
+        public async Task<IEnumerable<Student>> GetStudentsWithCourses()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Student> GetStudentsWithNoCourses()
+        public async Task<IEnumerable<Student>> GetStudentsWithNoCourses()
         {
             throw new NotImplementedException();
         }

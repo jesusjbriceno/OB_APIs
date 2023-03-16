@@ -4,9 +4,9 @@ namespace UniversityApiBackend.Services
 {
     public interface ICoursesService
     {
-        IEnumerable<Course> GetCoursesByCategory(int categoryId);
-        IEnumerable<Course> GetCoursesWithNoChapter();
-        Chapter GetCourseChapter(int courseId);
-        IEnumerable<Student> GetCourseStudents(int courseId);
+        Task<IEnumerable<Course>> GetCoursesByCategory(int categoryId);
+        Task<IEnumerable<Course>> GetCoursesWithNoChapter();
+        Task<Chapter> GetCourseChapter(int courseId);
+        Task<IEnumerable<Student>> GetCourseStudents(int courseId);
     }
 }

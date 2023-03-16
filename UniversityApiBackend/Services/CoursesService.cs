@@ -11,22 +11,22 @@ namespace UniversityApiBackend.Services
             _logger = logger;
         }
 
-        public Chapter GetCourseChapter(int courseId)
+        public async Task<Chapter> GetCourseChapter(int courseId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Course> GetCoursesByCategory(int categoryId)
+        public async Task<IEnumerable<Course>> GetCoursesByCategory(int categoryId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Student> GetCourseStudents(int courseId)
+        public async Task<IEnumerable<Student>> GetCourseStudents(int courseId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Course> GetCoursesWithNoChapter()
+        public async Task<IEnumerable<Course>> GetCoursesWithNoChapter()
         {
             throw new NotImplementedException();
         }
